@@ -1,11 +1,13 @@
 * {
     margin:0 0;
     padding:0;
+    height: 100%;
 }
 
 body {
     margin:0 50px; 
     background-color: white;
+    /* height: 100%; */
 }
 
 .container {
@@ -27,6 +29,7 @@ header {
     position: fixed;
     z-index: 1000;
     width: 100%;
+    top:0;
 }
 
 .header__title {
@@ -134,14 +137,141 @@ header {
     float: right;
 }
 
+.form__add {
+    margin: 0 auto;
+    height: auto;
+}
+
+.form__add form {
+    width: 270px;
+    /* background-color: aqua; */
+    margin: 0 auto;
+    position: relative;
+    top: 165px;
+}
+
+form > p {
+    font-style: italic;
+    font-family: Raleway-Thin;
+    font-size: 12px;
+    width: 100%;
+    border-top:1px dotted gray;
+    margin-top:10px;
+    padding-top: 3px;
+}
+
+
+
+form > div,
+.dvd__block,
+.book__block,
+.furniture__block {
+    padding: 5px;
+    width: 95%;
+    height: 26px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+
+
+form > div > span,
+.dvd__block > div > span,
+.book__block > div > span,
+.furniture__block > div > span {
+    font-family: Raleway-Regular;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+form > div span ~ span,
+.dvd__block > div span ~ span,
+.book__block > div span ~ span,
+.furniture__block > div span ~ span {
+    float: right;
+    font-size:24px;
+    padding-right: 5px;
+}
+
+form > div span ~ span > input,
+.dvd__block > div span ~ span > input,
+.book__block > div span ~ span > input,
+.furniture__block > div span ~ span > input {
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 22px;
+    width: 140px;
+    font-weight: bold;
+    color: rgb(83, 83, 83);
+    padding: 0 5px;
+    margin-right: 3px;
+}
+
+form > div span ~ span > select {
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 26px;
+    width: 125px;
+    font-weight: 600;
+    color: darkred;
+    margin-right: 3px;
+}
+
+.dvd__block,
+.book__block,
+.furniture__block {
+    margin-top: 10px;
+    height: auto;
+}
+
+/* .dvd__block {
+    padding: 5px;
+    width: 95%;
+    height: 26px;
+    line-height: 30px;
+    margin-left: 10px;
+} */
+
+
+/* .dvd__block > div > span {
+    font-family: Raleway-Regular;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+} */
+
+/* .dvd__block > div span ~ span {
+    float: right;
+    font-size:24px;
+    padding-right: 5px;
+} */
+
+/* .dvd__block > div span ~ span > input {
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 22px;
+    width: 155px;
+    font-weight: bold;
+    color: rgb(83, 83, 83);
+    padding: 0 5px;
+    margin-right: 3px;
+} */
+
+/* .form__add form input,select {
+    height:max-content;
+    margin-bottom:10px;
+    margin-top: 10px;    
+} */
+
+
 .products__container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-self: stretch;
+    /* align-self: stretch; */
     margin-top: 85px;
     margin-bottom: 85px;
-    overflow:hidden;
+    height: auto;
 }
 
 .products__container .checkbox {
@@ -161,7 +291,7 @@ header {
     text-align: center;
     display: flex;
     justify-content: center;
-    margin: 2% 0;
+    margin: 2% 5px;
 }
 
 
@@ -223,6 +353,7 @@ footer {
 @media screen and (max-width: 1023px) {
     body {
         margin:0 30px; 
+        height: 100%;
     }
 
     header {
@@ -237,6 +368,7 @@ footer {
 @media screen and (max-width: 640px) {
     body {
         margin:0 15px; 
+        height: 100%;
     }
 
     header {
@@ -252,11 +384,13 @@ footer {
 
     body {
         margin: 0 6px; 
+        height: 100%;
     }
 
     header {
         max-width: calc(100% - 12px);
         width: 100%;
+
     }
 
     footer {
