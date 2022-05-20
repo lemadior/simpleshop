@@ -1,39 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <LINK rel="stylesheet" type="text/css" href="css/fonts.css">
-    <LINK rel="stylesheet" type="text/css" href="css/main.css">
-    <title>Product List</title>
-</head>
-<body>
-
-        <header>
-            <div class="header__title">
-                <h1>Product List</h1>
-            </div>
-            <div class="wrapper"> 
-                <div class="burger-menu">
-                    <input id="menu-toggle" type="checkbox" />
-                    <label class="menu-btn" for="menu-toggle">
-                        <span></span>
-                    </label>
-
-                    <div class="menubox">
-                        <button id="add">ADD</button>
-                        <button id="delete-product-btn">MASS DELETE</button>
-                    </div>
-
-
-                    <!-- <ul class="menubox">
-                        <li><a href="#">ADD</a></li>
-                        <li><a href="#" >MASS DELETE</a></li>
-                    </ul> -->
-                </div>
-            </div>
-        </header>
 
         <div class="products__container">
             <div class="product">
@@ -77,18 +41,5 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-          
-
         </div>
 
-        <footer>
-            <!-- <div class="footer"> -->
-                Scandiweb Test Assigment
-            <!-- </div> -->
-        </footer>
-   
-</body>
-</html>

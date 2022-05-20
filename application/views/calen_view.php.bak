@@ -1,0 +1,20 @@
+          <div class="form" >
+            <form action="/calen" method="post" id="cform">
+                <label for="day">Число</label><br>
+                <input type="number" min="1" step="1" name="day" style="margin-bottom:10px;" required><br>
+
+                <label for="month">Місяць</label><br>
+                <select name="month" id="month" style="margin-bottom:10px;"></select><br>
+
+                <label for="year">Рік</label><br>
+                  <input name="year" type="number" min="1" max="3000" placeholder="1 - 3000" required><br>
+                <br>
+
+                <!-- <input type="submit" id="submit" class="js-open-modal">
+                <input type="reset" id="reset" style="float: right;"> -->
+            </form>
+            
+          </div>
+          <div class="send">
+              <a id="send">S E N D</a>
+          </div>

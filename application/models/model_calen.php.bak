@@ -1,0 +1,177 @@
+<?php
+
+namespace application\models;
+
+use application\core\Model;
+use application\core\Base;
+use application\core\Error;
+
+class Model_Calen extends Model
+{
+    public function get_data()
+    {
+        $arr = array();
+        $link = Base::getLink();
+        $month_idx = $_POST['month'] + 1;
+        $query = "SELECT month FROM year WHERE id=" . $month_idx;
+        $month = Base::getQuery($link, $query)[0]['month'];
+        
+        $last_two = substr($_POST['year'], 2, 2);
+//        echo "LTWO=" . $last_two . "<br>";
+//        echo "Month=" . $month . "<br>";
+
+        $year_index = $this->getYearKey($_POST['year']);
+
+//        echo "Year index=" .$year_index . "<br>";
+
+        $query = '';
+
+        switch($year_index) {
+            case 0:
+                $query = "SELECT id FROM one WHERE one=". 
+                            $last_two . " OR two=" . 
+                            $last_two . " OR three=" .
+                            $last_two . " OR four=" . 
+                            $last_two . " OR five=" . $last_two;
+                break;
+            case 1:
+                $query = "SELECT id FROM two WHERE one=". 
+                            $last_two . " OR two=" . 
+                            $last_two . " OR three=" .
+                            $last_two . " OR four=" . 
+                            $last_two . " OR five=" . $last_two;
+                break;
+            case 2:
+                $query = "SELECT id FROM three WHERE one=". 
+                            $last_two . " OR two=" . 
+                            $last_two . " OR three=" .
+                            $last_two . " OR four=" . $last_two;
+                break;
+            case 3:
+                $query = "SELECT id FROM four WHERE one=". 
+                            $last_two . " OR two=" . 
+                            $last_two . " OR three=" .
+                            $last_two . " OR four=" . $last_two;
+                break;
+        }
+
+        if (empty($query)) {
+            Error::setError("Cannot get year index for year " . $_POST['year']);
+        }
+
+        $month_index = Base::getQuery($link, $query)[0]['id'];
+
+        $mnth = '';
+
+        switch($_POST['month']) {
+            case 0:
+                $mnth = 'jan';
+                break;
+            case 1:
+                $mnth = 'feb';
+                break;
+            case 2:
+                $mnth = 'mar';
+                break;
+            case 3:
+                $mnth = 'apr';
+                break;
+            case 4:
+                $mnth = 'may';
+                break;
+            case 5:
+                $mnth = 'jun';
+                break;
+            case 6:
+                $mnth = 'jul';
+                break;
+            case 7:
+                $mnth = 'aug';
+                break;
+            case 8:
+                $mnth = 'sep';
+                break;
+            case 9:
+                $mnth = 'oct';
+                break;
+            case 10:
+                $mnth = 'nov';
+                break;
+            case 11:
+                $mnth = 'dez';
+                break;
+        }
+
+//        echo "Mindex=" . $month_index . "<br>";
+
+        $query = "SELECT " . $mnth . " FROM months WHERE id=" . $month_index;
+
+        $day_coeff = Base::getQuery($link, $query)[0][$mnth];
+
+
+        $day_coeff += $_POST['day'];
+
+        $query = "SELECT * FROM days WHERE sun={$day_coeff} 
+                                        OR mon={$day_coeff} 
+                                        OR tue={$day_coeff} 
+                                        OR wed={$day_coeff} 
+                                        OR thu={$day_coeff} 
+                                        OR fri={$day_coeff} 
+                                        OR sat={$day_coeff}";
+
+        $result_day = Base::getQuery($link, $query)[0];
+
+//        echo "Day coeff=" . $day_coeff . "<br>";
+
+        $result = '';
+
+        foreach ($result_day as $key => $value) {
+            if ($value == $day_coeff) {
+                switch($key) {
+                    case 'sun':
+                        $result = 'Неділя';
+                        break;
+                    case 'mon':
+                        $result = 'Понеділок';
+                        break;
+                    case 'tue':
+                        $result = 'Вівторок';
+                        break;
+                    case 'wed':
+                        $result = 'Середа';
+                        break;
+                    case 'thu':
+                        $result = 'Четвер';
+                        break;
+                    case 'fri':
+                        $result = "П'ятниця";
+                        break;
+                    case 'sat':
+                        $result = 'Субота';
+                }
+            }
+        }
+
+//        echo "Result = " . $result . "<br>";
+
+        $arr = [
+            'info_title' => 'День: ' . $_POST['day'] . '  Місяць: ' . $month . '  Рік: ' . $_POST['year'],
+            'info_result' => $result
+        ];
+
+        return $arr;
+    }
+
+    private function getYearKey($year)
+    {
+        $years = $GLOBALS['years'];
+        for ($i = 0; $i < count($years); $i++) {
+            for ($j = 0; $j < count($years[$i]); $j++) {
+                if ($years[$i][$j] >= $year) {
+                    return $j;
+                }
+            }
+        }
+    }
+
+}
