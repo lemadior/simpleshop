@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <LINK rel="stylesheet" type="text/css" href="css/fonts.css">
-    <LINK rel="stylesheet" type="text/css" href="css/main.css">
+    <LINK rel="stylesheet" type="text/css" href="css/base.css">
+    <?=$pagestyle;?>
     <title><?=$title;?></title>
 </head>
 <body>
@@ -14,7 +15,7 @@
             <div class="header__title">
                 <h1><?=$headerTitle;?></h1>
             </div>
-            <div class="<?=$headerButtons;?>"> 
+            <div class="<?=$headerButtonsState;?>"> 
                 <div class="burger-menu">
                     <input id="menu-toggle" type="checkbox" />
                     <label class="menu-btn" for="menu-toggle">
@@ -22,11 +23,15 @@
                     </label>
 
                     <div class="menubox">
-                        <button id="add">ADD</button>
-                        <button id="delete-product-btn">MASS DELETE</button>
+                        <!-- <button id="add">ADD</button>
+                        <button id="delete-product-btn">MASS DELETE</button> -->
+                        <?=$headerButtons;?>
                     </div>
                 </div>
             </div>
         </header>
 
-        <?= $error; ?>
+        <div id="page_error" class="<?=$errorVisible?>">
+            <p id="error-message"><?=$error;?></p>
+            <p style="display: relative; color: black; font-size:x-small;">Click/tap to remove</p>
+        </div>

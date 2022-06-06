@@ -134,7 +134,7 @@ header {
     display: none;
 }
 
-.wrapper {
+.header_buttons {
     display: flex;
     flex-direction: row;
     width: max-content;
@@ -205,7 +205,7 @@ form > div span ~ span > input,
     height: 22px;
     width: 140px;
     font-weight: bold;
-    color: rgb(83, 83, 83);
+    color: green;/* rgb(6, 166, 69);*/
     padding: 0 5px;
     margin-right: 3px;
 }
@@ -355,7 +355,7 @@ footer {
 
 .error {
     position: fixed;
-    width: 80%;
+    width: calc(100% - 120px);
     background-color: lightcoral;
     color: white;
     font-family: sans-serif;
@@ -363,12 +363,12 @@ footer {
     font-weight: 600;
     padding: 10px;
     margin: 0 auto;
-        margin-left: auto;
+    /* margin-left: 10%; */
     top: 85px !important;
     text-align: center;
     z-index: 2000;
-    margin-left: 5%;
-    display: none;
+    /* margin-left: 5%; */
+    /* display: none; */
 }
 
 .e404 {
@@ -411,9 +411,12 @@ footer {
         max-width: calc(100% - 60px);
     }
 
-    .e404 {
-        margin-left: 6%;
+    .error {
+        width: calc(100% - 80px);
     }
+    /* .e404 {
+        margin-left: 6%;
+    } */
 }
 
 @media screen and (max-width: 640px) {
@@ -428,6 +431,9 @@ footer {
 
     footer {
         max-width: calc(100% - 30px);
+    }
+    .error {
+        width: calc(100% - 50px);
     }
 }
 
@@ -506,7 +512,7 @@ footer {
         height: inherit;
     }
 
-    .e404 {
-        margin-left: 8%;
+    .error {
+        width: calc(100% - 32px);
     }
 }

@@ -1,23 +1,30 @@
 <?php
 
+use application\exceptions\Exception_Route;
+use application\core\Route;
+
 spl_autoload_register(function($class) {
     
-    $root = $_SERVER['DOCUMENT_ROOT'];
+    //$root = $_SERVER['DOCUMENT_ROOT'];
     $ds = DIRECTORY_SEPARATOR;
 
     
     $last_elem = array_pop(explode('\\', $class));
     $subfolder = 'core';
-    //echo "Class={$class}<br>";
+    // echo "Class={$class}<br>";
     if (strpos($class, 'Controller_') !== false)  {
         $subfolder = 'controllers';
     } else if (strpos($class, 'Model_') !== false)  {
         $subfolder = 'models';
-    } 
+    } else if (strpos($class, 'Exception_') !== false)  {
+        $subfolder = 'exceptions';
+    } else if (strpos($class, 'Type_') !== false)  {
+        $subfolder = 'core/types';
+    }
     
-    //echo "Class={$last_elem}<br>";
+    // echo "Class={$last_elem}<br>";
 
-    $filename = $root . $ds . 'application' . $ds . $subfolder . $ds . str_replace('\\', $ds, $last_elem) . '.php';
+    $filename = ROOT . $ds . 'application' . $ds . $subfolder . $ds . str_replace('\\', $ds, $last_elem) . '.php';
     
     $filename = strtolower($filename);
     
@@ -28,7 +35,8 @@ spl_autoload_register(function($class) {
     }
 });
 
-
-use application\core\Route;
-
-Route::start();
+try {
+    Route::start();
+} catch (Exception_Route $err) {
+    $err->Error404($err->getMessage());
+}

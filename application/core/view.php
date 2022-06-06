@@ -4,38 +4,72 @@ namespace application\core;
 
 use application\core\Page;
 use application\core\Error;
+use application\exceptions\Exception_Route;
 
 class View
 {
 
 	public function render(Page $page) {
-		echo $this->renderLayout($page, $this->renderView($page));
+		try {
+			echo $this->renderLayout($page, $this->renderView($page));
+		} catch (Exception_Route $err) {
+			$err->Error404($err->getMessage());
+		}
 	}
 
 	private function renderLayout(Page $page, $content) {
-		$layoutPath = $_SERVER['DOCUMENT_ROOT'] . "/application/layouts/{$page->layout}.php";
+		$layoutPath = $_SERVER['DOCUMENT_ROOT'] . "/application/layouts/{$page->getLayout()}.php";
+		$errorVisible = 'hide';
+		$error='';
+		$btpl = Settings::getTemplate('hdr_buttons');
+		$pagestyle ='';
+		$pagescript = '';
+
 
 		if (file_exists($layoutPath)) {
 			ob_start();
-			$title = $page->title;
-			$headerTitle = $page->headerTitle;
-			$headerButtons = $page->hideButtons;
-			//Error::setError('The test error');
-			$error = Error::showError();			
+			$title = $page->getPageTitle();
+			$headerTitle = $page->getHeader()->getTitle();
+			
+			$headerButtonsState = $page->getHeader()->getButtonsState();
+			$headerButtons = '';
 
+			foreach ($page->getHeader()->getButtons() as $button) {
+				$btn = str_replace("%ID%", $button->getId(), $btpl);
+				$btn = str_replace("%NAME%", $button->getName(), $btn);
+				$btn = str_replace("%ACTION%", $button->getAction(), $btn);
+				$headerButtons .= $btn;
+			}
+
+			if (!empty($page->getStyle())) {
+				$pagestyle = '<link rel="stylesheet" type="text/css" href="'. $page->getStyle() . '">';
+			}
+
+			if (!empty($page->getScript())) {
+				$pagescript = '<script  type="text/javascript" src="' . $page->getScript() . '"></script>';
+			}
+
+			//Error::setError('The test error');
+			// Error setted up by appropriate Exceptions classes
+			if (Error::isError()) {
+				$errorVisible = 'error';
+				$error = Error::getError();			
+			}
+			
 			include $layoutPath;
 			return ob_get_clean();
 		} else {
-			 Error::ErrorPage404("Не найден файл с лейаутом по пути $layoutPath"); 
+			throw new Exception_Route('Cannot find layout file : ' . $layoutPath, 3);
 		}
 	}
 
 	private function renderView(Page $page) {
-	    if ($page->view) {
-		$viewPath = $_SERVER['DOCUMENT_ROOT'] . "/application/views/{$page->view}.php";
+	    if ($page->getView()) {
+		$viewPath = $_SERVER['DOCUMENT_ROOT'] . "/application/views/{$page->getView()}.php";
 		if (file_exists($viewPath)) {
 			ob_start();
-			$data = $page->data;
+			$data = $page->getData();
+			//var_dump($data);
 			if (!empty($data)) {
 			    if (is_array($data)) {
 					extract($data);
@@ -45,18 +79,10 @@ class View
 			include $viewPath;
 			return ob_get_clean();
 		} else {
-			Error::ErrorPage404("Не найден файл с представлением по пути $viewPath");
+			throw new Exception_Route('Cannot find view file : ' . $layoutPath, 4);
 		}
 	    }
 	}
 
-    function generate($content_view, $template_view, $data = null)
-    {
-        // if (is_array($data)) {
-        //     extract($data);
-        // }
-
-        include 'application/views/' . $template_view;
-    }
 }
 

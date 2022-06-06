@@ -2,11 +2,9 @@
 
 namespace application\core;
 
-class Model
+abstract class Model
 {
-    public function get_data()
-    {
-        
-    }
+   abstract public function getData();
+    
 }
 
