@@ -56,9 +56,10 @@ class Controller_Main extends Controller
         } catch (\Exception $err) {
             Error::setError($err->getMessage());
         }
-
-        foreach ($_products as $product) {
-            $products .= $this->getProductCard($product);
+        if (!empty($_products)) {
+            foreach ($_products as $product) {
+                $products .= $this->getProductCard($product);
+            }
         }
 
         $this->setData(['products' => $products]);
