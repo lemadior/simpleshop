@@ -7,8 +7,8 @@ spl_autoload_register(function($class) {
 
     $ds = DIRECTORY_SEPARATOR;
 
-    
-    $last_elem = array_pop(explode('\\', $class));
+    $path_array = explode('\\', $class);
+    $last_elem = array_pop($path_array);
     $subfolder = 'core';
 
     if (strpos($class, 'Controller_') !== false)  {
