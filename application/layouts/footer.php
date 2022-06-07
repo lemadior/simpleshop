@@ -1,7 +1,5 @@
-<footer>
-            <!-- <div class="footer"> -->
+        <footer>
                 Scandiweb Test Assigment
-            <!-- </div> -->
         </footer>
         
         <script  type="text/javascript" src="js/base.js"></script>

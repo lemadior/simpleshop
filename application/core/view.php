@@ -18,10 +18,19 @@ class View
 	}
 
 	private function renderLayout(Page $page, $content) {
+
 		$layoutPath = $_SERVER['DOCUMENT_ROOT'] . "/application/layouts/{$page->getLayout()}.php";
+		
+		// Make visible div with error message
 		$errorVisible = 'hide';
+
+		// Error message
 		$error='';
+
+		// Template for header's buttons
 		$btpl = Settings::getTemplate('hdr_buttons');
+
+		// Here variables may contanis data to put custom css and scripts
 		$pagestyle ='';
 		$pagescript = '';
 
@@ -49,8 +58,6 @@ class View
 				$pagescript = '<script  type="text/javascript" src="' . $page->getScript() . '"></script>';
 			}
 
-			//Error::setError('The test error');
-			// Error setted up by appropriate Exceptions classes
 			if (Error::isError()) {
 				$errorVisible = 'error';
 				$error = Error::getError();			
@@ -65,22 +72,24 @@ class View
 
 	private function renderView(Page $page) {
 	    if ($page->getView()) {
-		$viewPath = $_SERVER['DOCUMENT_ROOT'] . "/application/views/{$page->getView()}.php";
-		if (file_exists($viewPath)) {
-			ob_start();
-			$data = $page->getData();
-			//var_dump($data);
-			if (!empty($data)) {
-			    if (is_array($data)) {
-					extract($data);
-			    }
+			
+			$viewPath = $_SERVER['DOCUMENT_ROOT'] . "/application/views/{$page->getView()}.php";
+			
+			if (file_exists($viewPath)) {
+				ob_start();
+				$data = $page->getData();
+
+				if (!empty($data)) {
+					if (is_array($data)) {
+						extract($data);
+					}
+				}
+			
+				include $viewPath;
+				return ob_get_clean();
+			} else {
+				throw new Exception_Route('Cannot find view file : ' . $layoutPath, 4);
 			}
-		
-			include $viewPath;
-			return ob_get_clean();
-		} else {
-			throw new Exception_Route('Cannot find view file : ' . $layoutPath, 4);
-		}
 	    }
 	}
 

@@ -25,42 +25,7 @@ class Model_Main extends Model
     public function getData()
     {
         $result = 'NOP';
-        // try {
-        //    // $data = Settings::getTemplate('products');
-        //    $result = Database::getQuery("SELECT id, name FROM products");
-        //    //$this->writeLog($data, 'some.log');
-        // } catch (Exception_Database $err) {
-        //     throw new Exception_Model($err->getMessage(),1);
-        // }
-
         $data = [];
-        // $products = [];
-        // echo "<pre><br>";
-        //     print_r($result);
-        // echo "</pre><br>";
-
-        // if (is_array($result) && count($result) > 0) {
-        //     foreach ($result as $arr) {
-        //         foreach ($arr as $key => $value) {
-        //             $data .= $key . " => " . $value . " ";
-        //         }
-        //         $data .= "<br>";
-        //     }
-        // }
-
-        // Array of available and allowed here types
-        // $result = $this->getProductTypes();
-       
-
-        // if (is_array($result) && count($result) > 0) {
-        //     foreach ($result as $value) {
-               
-        //         $data .= $value . "<br>";
-                
-        //     }
-        // }
-
-    
 
         try {
             $product_id_list = $this->getProductsIdList();
@@ -99,37 +64,12 @@ class Model_Main extends Model
 
             $data[] = $product;
         }
-        // echo "<pre><br>";
-        //      print_r($products);
-        //  echo "</pre><br>";
-
-        // foreach ($products as $product) {
-        //     $data .= $product->getId() . " : " 
-        //            . $product->getSku() . " : "
-        //            . $product->getName() . " : "
-        //            . $product->getPrice() ." $ : "
-        //            . $product->getType()->getAttributes() . " " . $product->getAttributeValue() 
-        //            . $this->prepareUnits($product->getFields()->getUnits()[0]) . "<br>"; 
-        // }
-
-        //        $data = $this->getAttrValueByProductId(5);
-
-        // $result = $this->getFieldsDataByProductId(7);
-
-        // foreach ($result as $key => $value) {
-        //     $data .= $key . " => " . $value . "<br>"; 
-        // }
-
-        //     echo "<pre><br>";
-        //     print_r($result);
-        // echo "</pre><br>";
+ 
         try {
             Database::closeConnection();
         } catch (Exception_Database $err) {
             throw new Exception_Model($err->getMessage(),1);
         }
-        //throw new Exception_Model('Test model exceptions', 0);
-
 
         return $data;
     }
@@ -209,12 +149,12 @@ class Model_Main extends Model
     private function getTypeByProductId($id)
     {
         $query = "SELECT types.name 
-        FROM fields, type_fields, products, attributes, types 
-        WHERE products.id = {$id} 
-        AND attributes.prod_id = products.id 
-        AND attributes.fields_id = fields.id 
-        AND type_fields.type_id = types.id 
-        AND type_fields.field_id = fields.id";
+                  FROM fields, type_fields, products, attributes, types 
+                  WHERE products.id = {$id} 
+                  AND attributes.prod_id = products.id 
+                  AND attributes.fields_id = fields.id 
+                  AND type_fields.type_id = types.id 
+                  AND type_fields.field_id = fields.id";
 
         try {
             // Returned array of arrays aka. [ ['name' => 'Name1'], ['name' => 'Name2'], ... ]
@@ -236,12 +176,12 @@ class Model_Main extends Model
         $data = [];
 
         $query = "SELECT types.name, types.prod_descr, types.attribute 
-        FROM fields, type_fields, products, attributes, types 
-        WHERE products.id = {$id}
-        AND attributes.prod_id = products.id 
-        AND attributes.fields_id = fields.id 
-        AND type_fields.type_id = types.id 
-        AND type_fields.field_id = fields.id";
+                  FROM fields, type_fields, products, attributes, types 
+                  WHERE products.id = {$id}
+                  AND attributes.prod_id = products.id 
+                  AND attributes.fields_id = fields.id 
+                  AND type_fields.type_id = types.id 
+                  AND type_fields.field_id = fields.id";
 
         try {
             // Returned array of arrays aka. [ ['name' => 'Name1', 'prod_descr' => 'description', 'attributes' => 'attr'], ... ]
@@ -250,10 +190,6 @@ class Model_Main extends Model
             throw new \Exception($err->getMessage());
             return [];
         }
-
-        //     echo "<pre><br>";
-        //      print_r($result);
-        //  echo "</pre><br>";
 
         return $result[0];
     }
@@ -319,12 +255,12 @@ class Model_Main extends Model
         $value = '';
 
         $query = "SELECT attributes.value 
-        FROM fields, type_fields, products, attributes, types 
-        WHERE products.id = {$id} 
-        AND attributes.prod_id = products.id 
-        AND attributes.fields_id = fields.id 
-        AND type_fields.type_id = types.id 
-        AND type_fields.field_id = fields.id";
+                  FROM fields, type_fields, products, attributes, types 
+                  WHERE products.id = {$id} 
+                  AND attributes.prod_id = products.id 
+                  AND attributes.fields_id = fields.id 
+                  AND type_fields.type_id = types.id 
+                  AND type_fields.field_id = fields.id";
 
         try {
             // Returned array of arrays aka. [ ['name' => 'Name1'], ['name' => 'Name2'], ... ]
@@ -348,12 +284,12 @@ class Model_Main extends Model
         $data = [];
 
         $query = "SELECT fields.name, fields.units 
-        FROM fields, type_fields, products, attributes, types 
-        WHERE products.id = {$id}
-        AND attributes.prod_id = products.id 
-        AND attributes.fields_id = fields.id 
-        AND type_fields.type_id = types.id 
-        AND type_fields.field_id = fields.id";
+                  FROM fields, type_fields, products, attributes, types 
+                  WHERE products.id = {$id}
+                  AND attributes.prod_id = products.id 
+                  AND attributes.fields_id = fields.id 
+                  AND type_fields.type_id = types.id 
+                  AND type_fields.field_id = fields.id";
 
         try {
             // Returned array of arrays aka. [ ['name' => 'Name1'], ['name' => 'Name2'], ... ]
@@ -366,10 +302,6 @@ class Model_Main extends Model
         foreach ($result as $arr) {
             $data[$arr['name']] = $arr['units'];
         }
-
-        //     echo "<pre><br>";
-        //      print_r($result);
-        //  echo "</pre><br>";
 
         return $data;
     }

@@ -10,9 +10,7 @@ class Model_404 extends Model
     {
         $data = $_SESSION['page_error'];
         $_SESSION['page_error'] = '';
-        // if (empty($data)) {
-        //     $data = "Sorry, page not found. Check address or try again!";
-        // }
+
         return $data;
     }
 }

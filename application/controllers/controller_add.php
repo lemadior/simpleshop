@@ -30,10 +30,11 @@ class Controller_Add extends Controller
     {
         $types = [];
         $data = [];
-    
-        if (!empty($_POST)) {
-          //print_r($_POST);
 
+        // If $_POST is not empty it means than button "ADD" was pressed
+        if (!empty($_POST)) {
+
+          // 'UNIQUE' is flag to get array of SKUs at the page loading
           if (!empty($_POST['UNIQUE'])) {
             try {
               $skus = $this->model->getSkuList();
@@ -60,7 +61,6 @@ class Controller_Add extends Controller
 
           foreach($fields as $field) {
             $attrs[$field['id']] = $_POST[strtolower($field['name'])]; 
-            //echo strtolower($field['name']) . "=" .$_POST[strtolower($field['name'])];
           }
 
           try {
@@ -130,18 +130,14 @@ class Controller_Add extends Controller
         $data['product_types'] = $str_types;
         $data['products_add_block'] = $str_prod_add;
 
-        // var_dump($this->getClassName());
         $this->setData($data);
-        //Error::setError('MNChsbqubceibcibc ibcuibiwe');
+
         $this->setPageTitle('Product Add');
         $this->setHeader(new Type_Header('Product Add', 'show'));
         $this->getHeader()->setButtons($this->header_buttons);
         $this->setView('add_view');
         $this->setScript($this->getClassName());
         $this->setStyle($this->getClassName());
-        //    echo "<pre>";
-        //        print_r($_POST);
-        //    echo "</pre>";
    
         $this->getViews()->render($this->getPage());
     }

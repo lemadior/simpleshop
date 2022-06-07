@@ -131,14 +131,7 @@ class Database
 
         $values = rtrim($values, ',');
 
-        //echo "Fields=" . $fields . '<br>';
-        //echo "Values=" . $values . '<br>';
-
         $query = "INSERT INTO $table $fields VALUES $values ";
-
-        // if(!mysqli_query($link, $sql)){
-        //     Error::setError(mysqli_error($link), 3);
-        // }
 
         try {
             self::doQuery($query);

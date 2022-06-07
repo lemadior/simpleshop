@@ -17,9 +17,6 @@
             <span><label for="types" placeholder="Select type">Type Switcher</label></span>
             <span><select name="types" id="productType">
                 <?=$product_types;?>
-            <!-- <option value="value1" selected>DVD</option>
-                <option value="value2">Book</option>
-                <option value="value3">Furniture</option> -->
             </select>
             </span>
         </div>

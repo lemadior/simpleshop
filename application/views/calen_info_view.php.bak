@@ -1,8 +1,0 @@
-        <div id="result" class="form modal">
-            <form action="/calen" method="post">
-            <p class="modal__title"><?=$info_title?></p>
-                <hr size="1" style="color: gray;">
-                <p class="result"><?=$info_result?></p>
-                <input type="submit" value="Повернутися" id="back">
-            </form>
-        </div>

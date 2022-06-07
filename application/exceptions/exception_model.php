@@ -4,7 +4,6 @@ namespace application\exceptions;
 
 use application\core\Settings;
 use application\core\traits\SystemMethods;
-//use application\core\Error;
 
 class Exception_Model extends \Exception
 {
@@ -17,8 +16,6 @@ class Exception_Model extends \Exception
         $this->messages = Settings::getCommonMessages();
         
         $msg = $this->messages[$code];
-
-       // Error::setError($msg);
 
         parent::__construct($msg, $code);
 

@@ -23,8 +23,6 @@
                     </label>
 
                     <div class="menubox">
-                        <!-- <button id="add">ADD</button>
-                        <button id="delete-product-btn">MASS DELETE</button> -->
                         <?=$headerButtons;?>
                     </div>
                 </div>

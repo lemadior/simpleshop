@@ -4,7 +4,6 @@ namespace application\exceptions;
 
 use application\core\Settings;
 use application\core\traits\SystemMethods;
-//use application\core\Error;
 
 class Exception_Database extends \Exception
 {

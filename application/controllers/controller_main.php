@@ -33,9 +33,9 @@ class Controller_Main extends Controller
         
         $products = ''; // Array of the product types with all needed data
        
+        // If $_POST is not emty it means than button 'DELETE' was pressed
         if (!empty($_POST)) {
-           //echo "POST<br>";
-            //var_dump($_POST);
+
             $answ = 'SUCCESS';
             foreach ($_POST as $index => $id ) {
                 if (!$this->model->deleteProductById($id)) {
@@ -46,38 +46,30 @@ class Controller_Main extends Controller
             }
             echo $answ; 
             return ;
-            //print_r($_POST);
-            //return 'a ' . 'b ' . 'c';
-        }//else {
 
-            try {
-                $_products = $this->model->getData();
-            } catch (Exception_Model $err) {
-                Error::setError($err->getMessage());
-            } catch (\Exception $err) {
-                Error::setError($err->getMessage());
-            }
+        }
 
-            foreach ($_products as $product) {
-                $products .= $this->getProductCard($product);
-            }
-   // }
+        try {
+            $_products = $this->model->getData();
+        } catch (Exception_Model $err) {
+            Error::setError($err->getMessage());
+        } catch (\Exception $err) {
+            Error::setError($err->getMessage());
+        }
 
-       //echo $products . "<br>";
+        foreach ($_products as $product) {
+            $products .= $this->getProductCard($product);
+        }
 
         $this->setData(['products' => $products]);
        
-       // Error::setError(['products' => $this->page->data]);
         $this->setPageTitle('Product List');
         $this->setHeader(new Type_Header('Product List', 'show'));
         $this->getHeader()->setButtons($this->header_buttons);
         $this->setScript($this->getClassName());
         $this->setStyle($this->getClassName());
         $this->setView('main_view');
-        //    echo "<pre>";
-        //        print_r($_POST);
-        //    echo "</pre>";
-   
+
         $this->getViews()->render($this->getPage());
     }
 

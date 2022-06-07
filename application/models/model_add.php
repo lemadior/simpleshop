@@ -2,8 +2,6 @@
 
 namespace application\models;
 
-use application\core\traits\SystemMethods;
-
 use application\core\Database;
 use application\core\Model;
 use application\core\Settings;
@@ -77,7 +75,7 @@ class Model_Add extends Model
             throw new Exception_Model($err->getMessage(),1);
             return [];
         }
-      //  var_dump($result);
+
         return $result;
     }
 
@@ -98,7 +96,6 @@ class Model_Add extends Model
             $sku[] = $value['sku'];
         }
 
-        //  var_dump($result);
         return $sku;
     }
 

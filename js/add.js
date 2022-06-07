@@ -1,6 +1,5 @@
 console.log('add.js is loaded');
 
-
 class Input 
 {
     #valid;
@@ -23,7 +22,7 @@ class Input
         if (value) {
             this.#obj.style.color = 'green';
         }  else {
-            // this.#obj.value = parseInt(this.obj.value,10);
+            // this.obj.value = parseInt(this.obj.value,10);
             this.#obj.style.color = 'red';
         }
     }
@@ -62,7 +61,7 @@ class Input
 
         if (parseInt(elem.value,10) === NaN || parseInt(elem.value,10) === 0 || elem.value == '')  {
            console.log("Elem false");
-            this.valid = false;
+           this.valid = false;
         } else {
             this.valid = true;   
             console.log("Elem true");
@@ -92,6 +91,8 @@ let sku_valid = false;
 let price_valid = false;
 let name_valid = false;
 
+let allow_add = false;
+
 window.setInterval( function(){
 
     if (sku_valid === false || 
@@ -103,13 +104,11 @@ window.setInterval( function(){
         height.valid === false ||
         _length.valid === false) {
         saveBtn.style.color = 'red';
+        allow_add = false;
     } else {
         saveBtn.style.color = 'black';
+        allow_add = true;
     }
-
-    // console.log("sku="+sku_valid, "price="+price_valid, "name="+name_valid,
-    //             "size="+size.valid,"weight="+weight.valid,"width="+width.valid,
-    //             "height="+height.valid,"length="+_length.valid);
 
   },10)
 
@@ -125,10 +124,8 @@ window.onload = () => {
 
     xhr.onload = () => {
 
-        //console.log('Return=',xhr.response);
         if (xhr.response != "FAIL") {
             SKU_list = xhr.response.split(' ');
-            //console.log(SKU_list);
         } else {
             error_msg.innerHTML="ERROR: can't get identifiers list!";
             error_msg.parentNode.classList.toggle('hide');
@@ -141,7 +138,11 @@ window.onload = () => {
 };
 
 function saving() {
+    
+    if (!allow_add) return;
+
     console.log('Adding');
+
     let xhr = new XMLHttpRequest();
     let mForm =  new FormData(document.getElementById('product_form'));
     
@@ -151,10 +152,8 @@ function saving() {
 
     xhr.onload = () => {
 
-        //console.log('Return=',xhr.response);
         if (xhr.response != "FAIL") {
             location.href="/";
-            //console.log(SKU_list);
         } else {
             error_msg.innerHTML="ERROR: can't get identifiers list!";
             error_msg.parentNode.classList.toggle('hide');
@@ -200,80 +199,3 @@ _name.addEventListener("input", (event) => {
         name_valid = true;
     }
 });
-/*
-function checkSize() {
-    if (parseInt(size.value,10) === NaN || 
-        parseInt(size.value,10) === 0 ||
-        size.value == '')  {
-        size.style.color = 'red';
-        size_valid = false;
-    } else {
-       // event.target.value = parseInt(event.target.value,10);
-        size.style.color = 'green';
-        size_valid = true;   
-    }
-}
-
-function checkWeight() {
-    if (parseInt(weight.value,10) === NaN || 
-        parseInt(weight.value,10) === 0 ||
-        weight.value == '')  {
-        weight.style.color = 'red';
-        weight_valid = false;
-    } else {
-       // event.target.value = parseInt(event.target.value,10);
-        weight.style.color = 'green';
-        weight_valid = true;   
-    }
-}
-
-function checkWidth() {
-    if (parseInt(width.value,10) === NaN || 
-        parseInt(width.value,10) === 0 ||
-        width.value == '')  {
-        width.style.color = 'red';
-        width_valid = false;
-    } else {
-       // event.target.value = parseInt(event.target.value,10);
-        width.style.color = 'green';
-        width_valid = true;   
-    }
-}
-
-function checkHeight() {
-    if (parseInt(height.value,10) === NaN || 
-        parseInt(height.value,10) === 0 ||
-        height.value == '')  {
-        height.style.color = 'red';
-        height_valid = false;
-    } else {
-       // event.target.value = parseInt(event.target.value,10);
-        height.style.color = 'green';
-        height_valid = true;   
-    }
-}
-
-function checkLength() {
-    if (parseInt(length.value,10) === NaN || 
-        parseInt(length.value,10) === 0 ||
-        length.value == '')  {
-        legth.style.color = 'red';
-        length_valid = false;
-    } else {
-       // event.target.value = parseInt(event.target.value,10);
-        length.style.color = 'green';
-        length_valid = true;   
-    }
-}
-*/
-
-//(size.obj).addEventListener("input", size._check.bind(size));
-/*
-(weight.getObj()).addEventListener("input", weight._check);
-
-(width.getObj()).addEventListener("input", width._check);
-
-(height.getObj()).addEventListener("input", height.check);
-
-(_length.getObj()).addEventListener("input", _length._check);
-*/

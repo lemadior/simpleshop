@@ -12,8 +12,8 @@ class Page
 	protected $data;
 	protected $header; // Myst be class of the <Type_Header>
 
-	protected $style;	//filename width concerns page style
-	protected $script;	//filename width concerns page JavaScript
+	protected $style;	//filename with current page style
+	protected $script;	//filename with current page JavaScript
 
 	public function __construct($view = 'main_view', $title = 'DEFAULT TITLE', $layout = 'main', $data = null)
 	{
@@ -91,7 +91,6 @@ class Page
 
 	public function setScript($scriptfile)
 	{
-		//var_dump($scriptfile);
 		if (file_exists(ROOT . "/js/" . $scriptfile)) {
 			$this->script = "js/" . $scriptfile;
 		}
