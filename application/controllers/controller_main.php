@@ -78,7 +78,7 @@ class Controller_Main extends Controller
 
     private function prepareUnits($str) 
     {    
-        $units = ['(MB)' => ' MB', '(KG)' => 'KG', '(CM)' => 'CM']; 
+        $units = ['(MB)' => ' MB', '(KG)' => 'KG', '(CM)' => '']; 
 
         return $units[$str];
     }
