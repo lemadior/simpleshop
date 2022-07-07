@@ -1,4 +1,4 @@
-* {
+B* {
     margin:0 0;
     padding:0;
     /* height: 100%; */
@@ -103,31 +103,11 @@ header {
 .menubox button {
     padding: 5px;
     cursor: pointer;
-    
 }
 
 .menubox button:hover {
     box-shadow: 1px 0px 3px rgba(0, 0, 0, .2);
 }
-
-  /*
-.menubox a {
-    text-decoration: none;
-    line-height: 25px;
-    color: rgb(81, 81, 90);
-    font-family: 'Jura Medium';
-    font-size: 14px;
-    
-}
-
-.menubox li.active {
-    background-repeat: repeat;
-}
-
-.menubox li.active a {
-    color: black;
-}
-*/
 
 #menu-toggle{
     opacity: 0;
